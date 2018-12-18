@@ -17,3 +17,5 @@ filebeat_log_level: warning
 filebeat_log_rotate_every_mb: 1
 
 filebeat_inputs: []
+
+filebeat_purge_registry: no

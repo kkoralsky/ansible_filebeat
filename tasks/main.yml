@@ -39,6 +39,16 @@
   template: src=conf.yml.j2 dest='{{ filebeat_configfile }}' owner='{{ filebeat_user }}'
   tags: upgrade
 
+- block:
+  - name: stop filebeat
+    service: name='{{ filebeat_name }}' state=stopped
+  - name: purge filebeat registry
+    file: name='{{ filebeat_registryfile }}' state=absent
+  - name: start filebeat
+    service: name='{{ filebeat_name }}' state=started
+  tags: [upgrade, filebeat_purge_registry]
+  when: filebeat_purge_registry|bool
+
 - name: ensure filebeat is running
   service: name='{{ filebeat_name }}' state=started
   become: true
