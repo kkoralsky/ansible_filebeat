@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Karol Ossowski
+  description: filebeat forwarding logs to logstash
+  license: BSD (default)
+
+  min_ansible_version: 2.2
+
+  platforms:
+  - name: Debian
+    versions:
+    - stretch
+    - 9
+  galaxy_tags: [debian, logs, filebeat, logstash, elk, elasticsearch, kibana]
+dependencies: []
