@@ -4,6 +4,6 @@
   become: true
   tags: superuser
 - name: restart filebeat service with daemon reload
-  systemd: name='{{ filbeat_name }}' state=restarted daemon_reload=yes
+  systemd: name='{{ filebeat_name }}' state=restarted daemon_reload=yes
   become: true
   tags: superuser
