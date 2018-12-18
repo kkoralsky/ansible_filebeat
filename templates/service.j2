@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 User={{ filebeat_user }}
-ExecStart={{ filebeat_exec }} -c {{ filebeat_config }} -path.home {{ filebeat_home }} -path.logs {{ filebeat_home }}
+ExecStart={{ filebeat_exec }} -c {{ filebeat_configfile }} -path.home {{ filebeat_home }} -path.logs {{ filebeat_home }}
 Restart=always
 
 [Install]
