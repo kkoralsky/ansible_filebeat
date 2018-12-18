@@ -1,0 +1,19 @@
+---
+filebeat_user: '{{ ansible_user_id }}'
+filebeat_name: filebeat_log
+filebeat_home: '/home/{{ filebeat_user }}'
+
+filebeat_logstash_hosts: ["localhost:5044"]
+filebeat_index: logstash
+filebeat_document_type: filebeat
+filebeat_fields: {}
+filebeat_fields_under_root: true
+
+filebeat_multiline_pattern: '^\['
+filebeat_multiline_negate: true
+filebeat_multiline_match: after
+
+filebeat_log_level: warning
+filebeat_log_rotate_every_mb: 1
+
+filebeat_inputs: []

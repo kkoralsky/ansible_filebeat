@@ -1,0 +1,45 @@
+---
+- name: configure filebeat user
+  user: name='{{ filebeat_user }}' 
+  tags: superuser
+  become: true
+
+- name: create filebeat directory
+  file: name='{{ filebeat_home }}' state=directory recurse=yes
+  become: true
+  tags: superuser
+
+- name: set home directory permissions
+  file: name='{{ filebeat_home }}' state=directory owner='{{ filebeat_user }}'
+  become: true
+  tags: superuser
+
+- name: copy filebeat binary
+  copy: src=files/filebeat dest='{{ filebeat_exec }}' mode=+x
+  tags: superuser
+  become: true
+
+- name: configure systemd service
+  template: src=service.j2 dest='/etc/systemd/system/{{ filebeat_name }}.service'
+  notify: restart filebeat service with daemon reload
+  when: ansible_service_mgr == "systemd"
+
+- block:
+  - name: configure init.d script
+    template: src=initd.sh.j2 dest='/etc/init.d/{{ filebeat_name }}' mode=+x
+    notify: restart filebeat service
+  - name: link initd script to 2 runlevel
+    file: src='/etc/init.d/{{ filebeat_name }}' dest='/etc/rc2.d/S99{{ filebeat_name }}'
+          state=link
+  when: ansible_service_mgr != 'systemd'
+  tags: superuser
+  become: true
+
+- name: configure filebeat agent
+  template: src=conf.yml.j2 dest='{{ filebeat_configfile }}' owner='{{ filebeat_user }}'
+  tags: upgrade
+
+- name: ensure filebeat is running
+  service: name='{{ filebeat_name }}' state=started
+  become: true
+  tags: superuser

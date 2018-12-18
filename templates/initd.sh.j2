@@ -1,0 +1,40 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          {{ filebeat_name }}
+# Required-Start:    $remote_fs $network
+# Required-Stop:     $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start {{ filebeat_name }} daemon
+# Description: Start {{ filebeat_name }} filebeat daemon
+### END INIT INFO
+
+NAME={{ filebeat_name }}
+DAEMON={{ filebeat_exec }}
+PID={{ filebeat_pidfile }}
+CONFIG={{ filebeat_config }}
+USER={{ filebeat_user }}
+
+[ -x $DAEMON ] || exit 0
+
+
+case "$1" in
+    start)
+        start-stop-daemon --start --make-pidfile --pidfile $PID \
+            --background --chuid $USER --exec $DAEMON -- -c $CONFIG
+    ;;
+    stop)
+        start-stop-daemon --stop --pidfile $PID --remove-pidfile
+    ;;
+    restart)
+        $0 stop
+        $0 start
+    ;;
+    status)
+        start-stop-daemon --status --pidfile $PID
+    ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}" >&2
+        exit 1
+    ;;
+esac
