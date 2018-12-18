@@ -1,7 +1,7 @@
 ---
 filebeat_user: '{{ ansible_user_id }}'
 filebeat_name: filebeat_log
-filebeat_home: '/home/{{ filebeat_user }}'
+filebeat_home: '{% if filebeat_user == ansible_user_id %}{{ ansible_user_dir }}{% else %}/home/{{ filebeat_user }}{% endif %}/filebeat'
 
 filebeat_logstash_hosts: ["localhost:5044"]
 filebeat_index: logstash
