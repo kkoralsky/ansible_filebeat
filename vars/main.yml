@@ -1,0 +1,6 @@
+---
+filebeat_exec: '{{ filebeat_home }}/filebeat'
+filebeat_configfile: '{{ filebeat_home }}/{{ filebeat_name }}.yml'
+filebeat_pidfile: '{{ filebeat_home }}/{{ filebeat_name }}.pid'
+filebeat_logfile: '{{ filebeat_home }}/{{ filebeat_name }}.log'
+filebeat_registryfile: '{{ filebeat_home }}/{{ filebeat_name }}-registry.json'
