@@ -3,6 +3,7 @@ filebeat.inputs:
 {% for input in filebeat_inputs %}
   - fields: {{ input.fields|default(filebeat_fields)|to_json }}
     fields_under_root: {{ input.fields_under_root|default(filebeat_fields_under_root)|bool|to_json }}
+    tags: {{ input.tags|default([])|union(filebeat_tags)|to_yaml }}
     paths: {{ input.paths|to_json }}
 {% if input.exclude_files is defined %}
     exclude_files: {{ input.exclude_files|to_json }}

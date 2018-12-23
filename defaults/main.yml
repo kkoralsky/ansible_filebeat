@@ -5,6 +5,7 @@ filebeat_home: '{% if filebeat_user == ansible_user_id %}{{ ansible_user_dir }}{
 
 filebeat_logstash_hosts: ["localhost:5044"]
 filebeat_index: logstash
+filebeat_tags: []
 filebeat_fields: {}
 filebeat_fields_under_root: true
 
