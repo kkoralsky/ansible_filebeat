@@ -1,8 +1,7 @@
 filebeat.registry_file: {{ filebeat_registryfile }}
 filebeat.inputs:
 {% for input in filebeat_inputs %}
-  - document_type: {{ input.document_type|default(filebeat_document_type) }}
-    fields: {{ input.fields|default(filebeat_fields)|to_json }}
+  - fields: {{ input.fields|default(filebeat_fields)|to_json }}
     fields_under_root: {{ input.fields_under_root|default(filebeat_fields_under_root)|bool|to_json }}
     paths: {{ input.paths|to_json }}
 {% if input.exclude_files is defined %}

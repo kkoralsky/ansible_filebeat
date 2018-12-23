@@ -17,7 +17,6 @@ Role Variables
   (default: filebeat subdirectory of home directory of `filebeat_user`)
 - `filebeat_name` - name of the filebeat instance
 - `filebeat_index` - ES index prefix where all data will be eventually stored 
-- `filebeat_document_type` - ES index type
 - `filebeat_logstash_hosts` - list of logstash *connection strings*
   (in the format: `host/ip:port`; "localhost:5044" by default)
 - `filebeat_fields` - mapping annotating each log *beat* (empty)
