@@ -21,7 +21,6 @@ Role Variables
   (in the format: `host/ip:port`; "localhost:5044" by default)
 - `filebeat_fields` - mapping annotating each log *beat* (empty)
 - `filebeat_inputs` - list of mappings representing inputs with following keys:
-    - `document_type`
     - `fields` - mapping annotating given input; this is replacing `filebeat_fields` if defined
     - `paths` - list of paths (supports globs)
     - `multiline`
