@@ -44,10 +44,14 @@
 - block:
   - name: stop filebeat
     service: name='{{ filebeat_name }}' state=stopped
+    become: true
+    tags: [superuser]
   - name: purge filebeat registry
     file: name='{{ filebeat_registryfile }}' state=absent
   - name: start filebeat
     service: name='{{ filebeat_name }}' state=started
+    become: true
+    tags: [superuser]
   tags: [upgrade, filebeat_purge_registry]
   when: filebeat_purge_registry|bool
 
