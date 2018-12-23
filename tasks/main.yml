@@ -22,6 +22,8 @@
 - name: configure systemd service
   template: src=service.j2 dest='/etc/systemd/system/{{ filebeat_name }}.service'
   notify: restart filebeat service with daemon reload
+  tags: [superuser]
+  become: true
   when: ansible_service_mgr == "systemd"
 
 - block:
