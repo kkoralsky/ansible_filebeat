@@ -40,6 +40,7 @@
 - name: configure filebeat agent
   template: src=conf.yml.j2 dest='{{ filebeat_configfile }}' owner='{{ filebeat_user }}'
   tags: upgrade
+  notify: restart filebeat service
 
 - block:
   - name: stop filebeat
